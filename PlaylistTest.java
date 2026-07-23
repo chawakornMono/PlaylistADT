@@ -21,7 +21,6 @@ public class PlaylistTest {
             System.out.println("[FAIL] " + name);
         }
     }
-
     public static void main(String[] args) {
         boolean assertsOn = false;
         assert assertsOn = true;
@@ -29,7 +28,6 @@ public class PlaylistTest {
             System.out.println("WARNING: assertions disabled"
                     + " - re-run with: java -ea PlaylistTest\n");
         }
-
         System.out.println("=== Playlist Test Suite ===\n");
 
         testCreators();
@@ -50,7 +48,7 @@ public class PlaylistTest {
         }
     }
 
-    // --- Partition: ว่าง / มีเพลง / input ที่ผิดเงื่อนไข ---
+    // --- Partition: ว่าง / มีเพลง / input ผิดเงื่อนไข ---
     private static void testCreators() {
         System.out.println("-- Creators --");
 
@@ -68,7 +66,7 @@ public class PlaylistTest {
         Playlist fromEmpty = new Playlist(new ArrayList<String>());
         check("new(empty list) -> empty", fromEmpty.size() == 0);
 
-        // input ที่ผิดเงื่อนไขต้องโยน exception ไม่ใช่ปล่อยผ่าน
+        // input ที่ผิดเงื่อนไขโยน exception 
         boolean threwDup = false;
         try {
             new Playlist(Arrays.asList("A", "A"));
@@ -108,7 +106,7 @@ public class PlaylistTest {
         check("add preserves insertion order",
                 s.songs().equals(Arrays.asList("A", "B", "C")));
 
-        // เพลงซ้ำไม่ใช่ error — คืน false เฉย ๆ
+        // เพลงซ้ำไม่ใช่ error = คืน false เฉย ๆ
         check("add duplicate -> returns false", !s.add("A"));
         check("failed add leaves size unchanged", s.size() == 3);
 
@@ -141,7 +139,6 @@ public class PlaylistTest {
         check("full playlist stays at MAX_SONGS",
                 full.size() == Playlist.MAX_SONGS);
     }
-
     // --- Mutator: remove ทั้งกรณีพบและไม่พบ ---
     private static void testRemove() {
         System.out.println("\n-- Remove --");
@@ -152,19 +149,17 @@ public class PlaylistTest {
         check("remove -> song is gone", !s.contains("B"));
         check("remove keeps the others in order",
                 s.songs().equals(Arrays.asList("A", "C")));
-
-        // ลบเพลงที่ไม่มีไม่ใช่ error — คืน false เฉย ๆ
+        // ลบเพลงที่ไม่มีไม่ใช่ error = คืน false เฉย ๆ
         check("remove missing song -> returns false", !s.remove("nope"));
         check("failed remove leaves size unchanged", s.size() == 2);
 
-        // boundary: ลบจนหมด
+        // boundary:ลบจนหมด
         s.remove("A");
         s.remove("C");
         check("remove all -> empty", s.size() == 0);
         check("remove on empty playlist -> returns false", !s.remove("A"));
     }
-
-    // --- Observer ต้องไม่มี side effect ---
+    // --- Observer ไม่มี side effect ---
     private static void testObservers() {
         System.out.println("\n-- Observers --");
 
@@ -182,7 +177,7 @@ public class PlaylistTest {
         check("observers have no side effects", s.size() == before);
     }
 
-    // --- Producer ต้องคืนตัวใหม่ ไม่แก้ตัวเดิม ---
+    // --- Producer คืนตัวใหม่ ไม่แก้ตัวเดิม ---
     private static void testProducer() {
         System.out.println("\n-- Producer (shuffled) --");
 
